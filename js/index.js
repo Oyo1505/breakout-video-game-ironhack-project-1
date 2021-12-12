@@ -1,7 +1,5 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-var paddleWidth = 75;
-var paddleX = (canvas.width-paddleWidth)/2;
 
 
  // BALL init
@@ -25,49 +23,20 @@ var paddleX = (canvas.width-paddleWidth)/2;
 const paddle = {
   x: 100,
   y: 15,
+  paddleWidth: 150,
+  paddleHeight: 15,
+  paddleX : (canvas.width - 150) / 2,
   color: 'red',
+  rightPressed :false,
+  leftPressed: false,
   draw: function () {
     ctx.beginPath();
-    ctx.fillRect(450, 500, 100, 15);
+    ctx.fillRect(paddle.paddleX, 500, paddle.paddleWidth, paddle.paddleHeight);
     ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
   }
 };
-function update() {
-  paddle.draw()
-  ball.draw();
-  ball.x += ball.vx;
-  ball.y += ball.vy;
-  if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
-    ball.vy *= -1;
-  }
-  if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
-    ball.vx *= -1;
-  }
- // boundariesElement(canvas)
- 
- //  hitBottom()
-
-}
- //boundaries racket
- function boundariesElement(racket){
-  if (ball.y + ball.vy > racket.height || ball.y + ball.vy < 0) {
-    ball.vy *= -1;
-  }
-  if (ball.x + ball.vx > racket.width || ball.x + ball.vx < 0) {
-    ball.vx *= -1;
-  }
-}
-
-function hitBottom() {
-  let rockbottom = canvas.height - ball.radius;
-  if (ball.y > rockbottom) {
-      myGameArea.stop()
-  //   ball.y = rockbottom;
-  //   clearInterval(intervalId);
-  }
-}
 
 
 //Game Arena
@@ -93,6 +62,72 @@ const myGameArea = {
         ctx.fillText(`Score: ${points}`, 350, 50);
       },
   };
+function matrixBlocks(x, y){
+  //create blocks
+  for(let i = 0; i < x; i++ ){
+    for(let j = 0; j < y; j++){
+      ctx.beginPath();
+      ctx.rect(y * 2, x * 10, (canvas.width / y), 20);
+      ctx.stroke();
+    }
+  }
+}
+function initBlocks(){
+  //init all blocks
+  matrixBlocks(3, 10)
+}
+
+function update() {
+  paddle.draw()
+  ball.draw();
+  initBlocks()
+  ball.x += ball.vx;
+  ball.y += ball.vy;
+
+  if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+    ball.vy *= -1;
+  }
+  if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
+    ball.vx *= -1;
+  }
+
+  if(paddle.rightPressed){
+    paddle.paddleX += 7;
+    if(paddle.paddleX + paddle.paddleWidth > canvas.width){
+      paddle.paddleX = canvas.width -   paddle.paddleWidth;
+    }
+  }else if(paddle.leftPressed) {
+    paddle.paddleX -= 7;
+    if (  paddle.paddleX < 0){
+      paddle.paddleX = 0;
+    }
+}
+ // boundariesElement(canvas)
+ 
+ //  hitBottom()
+
+}
+ //boundaries racket
+ function boundariesElement(racket){
+  if (ball.y + ball.vy > racket.height || ball.y + ball.vy < 0) {
+    ball.vy *= -1;
+  }
+  if (ball.x + ball.vx > racket.width || ball.x + ball.vx < 0) {
+    ball.vx *= -1;
+  }
+}
+
+function hitBottom() {
+  let rockbottom = canvas.height - ball.radius;
+  if (ball.y > rockbottom) {
+      myGameArea.stop()
+  //   ball.y = rockbottom;
+  //   clearInterval(intervalId);
+  }
+}
+
+
+
 
   function updateGameArea() {
     myGameArea.clear();
@@ -101,7 +136,23 @@ const myGameArea = {
     //myGameArea.score();
   }
 
-  
+  function keyDownHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        paddle.rightPressed = true;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+      paddle.leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.keyCode == "Right" || e.key == "ArrowRight") {
+      paddle.rightPressed = false;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+      paddle.leftPressed = false;
+    }
+}
 
  
   myGameArea.start()
@@ -110,18 +161,6 @@ const myGameArea = {
       myGameArea.gameEngaged = true; 
      }
   })
-    document.addEventListener('keydown', (e) => {
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
 
-      switch (e.keyCode) {
-        case 39: // up arrow
-          paddle.x += 7;
-          break;
-        case 37: // left arrow
-          paddle.x -=7;
-          break;
-      }
-    });
-    document.addEventListener('keyup', (e) => {
-      paddle.x = 0;
-      
-    });
