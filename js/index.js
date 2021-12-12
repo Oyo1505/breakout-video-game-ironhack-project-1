@@ -62,19 +62,22 @@ const myGameArea = {
         ctx.fillText(`Score: ${points}`, 350, 50);
       },
   };
-function matrixBlocks(x, y){
+function matrixBlocks(numBlocks){
   //create blocks
-  for(let i = 0; i < x; i++ ){
-    for(let j = 0; j < y; j++){
+ 
+  let rows = 6;
+  let column = 4
+  for(let i = 0; i <= numBlocks.length; i++ ){
+    underline+=50
       ctx.beginPath();
-      ctx.rect(y * 2, x * 10, (canvas.width / y), 20);
+      ctx.rect(underline, y, 40, 20);
       ctx.stroke();
-    }
   }
 }
 function initBlocks(){
   //init all blocks
-  matrixBlocks(3, 10)
+  matrixBlocks(78);
+
 }
 
 function update() {
