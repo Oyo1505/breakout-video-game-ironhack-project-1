@@ -43,7 +43,7 @@ const paddle = {
 const blocks = [];
 const myGameArea = {
     gameEngaged :false,
-    frames: 0,
+    blocks: 83,
     start: function () {
        // ball.draw();
     // call updateGameArea() every 20 milliseconds
@@ -62,28 +62,33 @@ const myGameArea = {
         ctx.fillText(`Score: ${points}`, 350, 50);
       },
   };
-function matrixBlocks(numBlocks){
+function drawBlocks(){
   //create blocks
- 
-  let rows = 6;
-  let column = 4
-  for(let i = 0; i <= numBlocks.length; i++ ){
-    underline+=50
+  let gapX = 80;
+  let gapY = 20;
+  for(let i = 0; i <= myGameArea.blocks; i++ ){
+    gapX+=45
       ctx.beginPath();
-      ctx.rect(underline, y, 40, 20);
+      if(i % 12 === 0 ){
+        gapY+=30;
+        gapX = 100;
+      }
+      ctx.rect(gapX, gapY, 40, 20);
       ctx.stroke();
   }
 }
-function initBlocks(){
-  //init all blocks
-  matrixBlocks(78);
+function cllisionBlocks(){
+  //collission blocks
+  for(let i = 0 ; i < myGameArea.length; i++){
+
+  }
 
 }
 
 function update() {
   paddle.draw()
   ball.draw();
-  initBlocks()
+  drawBlocks();
   ball.x += ball.vx;
   ball.y += ball.vy;
 
