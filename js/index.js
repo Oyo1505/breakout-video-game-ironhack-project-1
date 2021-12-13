@@ -43,7 +43,8 @@ const paddle = {
 const blocks = [];
 const myGameArea = {
     gameEngaged :false,
-    blocks: 83,
+    numBlocks: 83,
+    blocks :[],
     start: function () {
        // ball.draw();
     // call updateGameArea() every 20 milliseconds
@@ -66,13 +67,16 @@ function drawBlocks(){
   //create blocks
   let gapX = 80;
   let gapY = 20;
-  for(let i = 0; i <= myGameArea.blocks; i++ ){
+  for(let i = 0; i <= myGameArea.numBlocks; i++ ){
     gapX+=45
       ctx.beginPath();
       if(i % 12 === 0 ){
         gapY+=30;
         gapX = 100;
+        
       }
+     
+
       ctx.rect(gapX, gapY, 40, 20);
       ctx.stroke();
   }
@@ -89,9 +93,11 @@ function update() {
   paddle.draw()
   ball.draw();
   drawBlocks();
+  
+ // console.log( paddle   )
   ball.x += ball.vx;
   ball.y += ball.vy;
-
+  collisionPaddle();
   if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
     ball.vy *= -1;
   }
@@ -115,14 +121,13 @@ function update() {
  //  hitBottom()
 
 }
- //boundaries racket
- function boundariesElement(racket){
-  if (ball.y + ball.vy > racket.height || ball.y + ball.vy < 0) {
+ //collison  paddle
+ function collisionPaddle(){
+   console.log(ball.y )
+  if (ball.y  > 500  ) {
     ball.vy *= -1;
   }
-  if (ball.x + ball.vx > racket.width || ball.x + ball.vx < 0) {
-    ball.vx *= -1;
-  }
+ 
 }
 
 function hitBottom() {
@@ -135,7 +140,9 @@ function hitBottom() {
 }
 
 
-
+// top() {
+//   return this.y;
+// }
 
   function updateGameArea() {
     myGameArea.clear();
@@ -154,7 +161,7 @@ function hitBottom() {
 }
 
 function keyUpHandler(e) {
-    if(e.keyCode == "Right" || e.key == "ArrowRight") {
+    if(e.key == "Right" || e.key == "ArrowRight") {
       paddle.rightPressed = false;
     }
     else if(e.key == "Left" || e.key == "ArrowLeft") {
@@ -162,10 +169,11 @@ function keyUpHandler(e) {
     }
 }
 
- 
-  myGameArea.start()
+myGameArea.start()
+
   document.addEventListener('keydown', (e) => {
      if(!myGameArea.gameEngaged && e.keyCode == 32 ){
+      
       myGameArea.gameEngaged = true; 
      }
   })
