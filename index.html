@@ -8,24 +8,36 @@
     <link rel="stylesheet" href='./css/styles.css'>
 </head>
 <body>
+<div id="main">
+<section class="game-board">   
     <h1>BreakOut Game</h1>
-<section>   
     <canvas id="canvas"width="800" height="600">
     
     </canvas>
 </section>
-<aside>
+<aside class="infos-game">
+    <div>
+        <h2>TIME</h2>
+        <div id="time">
+            <span id="minDec" class="number">0</span>
+            <span id="minUni" class="number">0</span>
+            <span>:</span>
+            <span id="secDec" class="number">0</span>
+            <span id="secUni" class="number">0</span>
+        </div>
+    </div>
     <div>
         <h2>Score</h2>
         <div id="score"></div>
     </div>
 </aside>
-
+</div>
   <audio  id='explosion'>
     <source src="./sounds/explosion.wav" type="audio/mpeg">
   Your browser does not support the audio element.
   </audio>
- <script src="js/class/player.js" ></script> 
+ <script src="js/class/chronometer.js" ></script> 
+ <script src="js/class/balls.js" ></script> 
  <script src="js/index.js" ></script> 
 </body>
 </html>
