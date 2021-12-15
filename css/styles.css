@@ -3,45 +3,147 @@
   src: url("../fonts/LLPIXEL3.ttf");
 }
 
-body{
+body {
   font-family: pixel;
   color: white;
   height: 100%;
-  background: url('../images/background.jpg') no-repeat;
+  font-size: 16px;
+  background: url("../images/background.jpg") no-repeat;
+  background-size: cover;
 }
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 canvas {
   background-color: white;
   border-radius: 5px;
+  -webkit-box-shadow: 1px 2px 21px 3px white;
+  box-shadow: 1px 2px 21px 3px white;
+  margin-top: 25px;
 }
-
-#main{
-
+.awesome {
+  animation-name: back-can;
+  animation-duration: 500ms;
+}
+.box-sadow-color {
+  animation-name: box-shad;
+  animation-duration: 500ms;
+}
+#main {
+  width: 100%;
   background-size: cover;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  
+  gap: 4%;
   text-align: center;
+  align-items: center;
 }
 
-.game-board{
+.game-board {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
-.game-board h1{
-  margin-top: 25px;
+.game-board h1 {
+  font-style: italic;
+  font-size: 4rem;
 }
-.infos-game{
+.infos-game {
   display: flex;
-    flex-direction: column;
-    width: 10%;
-    justify-content: center;
-    gap: 30px;
+  flex-direction: column;
+  width: 10%;
+  justify-content: center;
+  gap: 30px;
+}
+
+ul {
+  margin-top: 20px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.3rem;
+}
+.board {
+  width: 15%;
+  height: 400px;
+  color: black;
+  font-weight: 700;
+  border-radius: 5px;
+  background-color: white;
+  -webkit-box-shadow: 1px 2px 21px 3px white;
+  box-shadow: 1px 2px 21px 3px white;
+}
+.board h3 {
+  font-size: 2rem;
+}
+li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+}
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 14px;
+}
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+@keyframes box-shad {
+  0% {
+    box-shadow: 1px 2px 21px 3px white;
+    animation-timing-function: ease;
+  }
+  25% {
+    box-shadow: 1px 2px 300px 3px rgb(255, 244, 91);
+    animation-timing-function: ease;
+  }
+  50% {
+    box-shadow: 1px 2px 21px 3px rgb(228, 147, 71);
+    animation-timing-function: ease;
+  }
+  75% {
+    box-shadow: 1px 2px 300px 3px rgb(248, 68, 62);
+    animation-timing-function: ease;
+  }
+  100% {
+    box-shadow: 1px 2px 21px 3px rgb(253, 253, 253);
+    animation-timing-function: ease;
+  }
+}
+
+@keyframes back-can {
+  0% {
+    background-color: white;
+  }
+  25% {
+    background-color: black;
+  }
+  50% {
+    background-color: white;
+  }
+  75% {
+    background-color: black;
+  }
+  100% {
+    background-color: white;
+  }
 }
