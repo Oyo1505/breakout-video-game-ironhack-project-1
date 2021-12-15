@@ -9,15 +9,19 @@
 </head>
 <body>
 <div id="main">
+    <div>
+
+    </div>
     <aside class="board">
         <h3>Rules</h3>
-        <ul>
-            <li><- Left</li>
-            <li>-> Right</li>
+        <ul class="rules">
+            <li ><i class="icon icon-arrow-left"></i> Left</li>
+            <li><i class="icon icon-arrow-right"></i> Right</li>
             <li>Space to start the game</li>
             <li><div class="dot red"></div>1 hit</li>
             <li><div class="dot blue"></div>2 hit</li>
             <li><div class="dot green"></div>3 hit</li>
+           
         </ul>
     </aside>
 <section class="game-board">   
@@ -44,11 +48,14 @@
     </div>
 </aside>
 </div>
-  <audio  id='explosion'>
-    <source src="./sounds/explosion.wav" type="audio/mpeg">
-  Your browser does not support the audio element.
-  </audio>
+<div class="fullscreen-bg">
+    <video playsinline autoplay muted loop  id="fullscreen-bg__video">
+        <source src="./video/video.mp4" type="video/mp4">
+      </video>
+</div>
+ <script src="js/class/bricks.js" ></script> 
  <script src="js/class/chronometer.js" ></script> 
+ <script src="js/class/paddle.js" ></script> 
  <script src="js/class/balls.js" ></script> 
  <script src="js/index.js" ></script> 
 </body>

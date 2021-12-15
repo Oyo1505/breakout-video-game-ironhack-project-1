@@ -2,14 +2,27 @@
   font-family: pixel;
   src: url("../fonts/LLPIXEL3.ttf");
 }
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  height: 19px;
+  width: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 15px;
 
+}
+.icon-arrow-right{
+  background-image: url('../images/right.png');
+}
+.icon-arrow-left{
+  background-image: url('../images/left.png');
+}
 body {
   font-family: pixel;
   color: white;
   height: 100%;
   font-size: 16px;
-  background: url("../images/background.jpg") no-repeat;
-  background-size: cover;
 }
 * {
   margin: 0;
@@ -24,8 +37,7 @@ canvas {
   margin-top: 25px;
 }
 .awesome {
-  animation-name: back-can;
-  animation-duration: 500ms;
+  animation: back-can 2s infinite;
 }
 .box-sadow-color {
   animation-name: box-shad;
@@ -38,8 +50,11 @@ canvas {
   flex-direction: row;
   justify-content: center;
   gap: 4%;
+
   text-align: center;
   align-items: center;
+  position: relative;
+  height: 100vh;
 }
 
 .game-board {
@@ -50,6 +65,9 @@ canvas {
 .game-board h1 {
   font-style: italic;
   font-size: 4rem;
+  text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px,
+    rgb(165, 14, 224) 0px 0px 15px, #a81c91 0px 0px 20px,
+    2px 2px 1px rgba(102, 7, 190, 0);
 }
 .infos-game {
   display: flex;
@@ -59,8 +77,7 @@ canvas {
   gap: 30px;
 }
 
-ul {
-  margin-top: 20px;
+.rules {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -69,10 +86,12 @@ ul {
   align-items: center;
   gap: 20px;
   font-size: 1.3rem;
+  padding: 10px;
 }
 .board {
   width: 15%;
-  height: 400px;
+  height: 350px;
+  padding: 10px;
   color: black;
   font-weight: 700;
   border-radius: 5px;
@@ -104,16 +123,38 @@ li {
 }
 
 .blue {
-  background-color: blue;
+  background-color: #e9f970;
 }
 
+/*VIDEO BG*/
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.fullscreen-bg__video {
+  position: absolute;
+  top: 0;
+
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*KEYFRAMES*/
 @keyframes box-shad {
   0% {
     box-shadow: 1px 2px 21px 3px white;
     animation-timing-function: ease;
   }
   25% {
-    box-shadow: 1px 2px 300px 3px rgb(255, 244, 91);
+    box-shadow: 1px 2px 90px 3px rgb(255, 244, 91);
     animation-timing-function: ease;
   }
   50% {
@@ -121,7 +162,7 @@ li {
     animation-timing-function: ease;
   }
   75% {
-    box-shadow: 1px 2px 300px 3px rgb(248, 68, 62);
+    box-shadow: 1px 2px 90px 3px rgb(248, 68, 62);
     animation-timing-function: ease;
   }
   100% {
