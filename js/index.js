@@ -210,12 +210,14 @@ const liScore = document.querySelector('#scoreBoard')
 let newArr = JSON.parse(localStorage.getItem("score")) || [];
 
 function addScore() {
-  if(newArr.score < myGameArea.score){
-    let personalScore = { score : myGameArea.score || 0}
+  let personalScore = { score : myGameArea.score || 0}
+  if(myGameArea.score  > newArr.score && newArr !==0){
+    console.log(newArr, myGameArea.score)
     localStorage.setItem("score", JSON.stringify(personalScore));
     liScore.innerHTML = myGameArea.score
   }else{
-    liScore.innerHTML = newArr.score
+    localStorage.setItem("score", JSON.stringify(personalScore));
+    liScore.innerHTML = myGameArea.score
   }
 
 }

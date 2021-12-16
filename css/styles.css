@@ -41,7 +41,7 @@ canvas {
 }
 .box-sadow-color {
   animation-name: box-shad;
-  animation-duration: 500ms infinite ;
+  animation-duration: 500ms infinite;
 }
 #main {
   width: 100%;
