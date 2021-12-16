@@ -1,10 +1,11 @@
+const bipSound = new Audio("./sounds/bip.wav");
 class Bricks {
   constructor(width, height, rows, column) {
     (this.brickWidth = width),
       (this.brickHeight = height),
       (this.brickPadding = 2),
       (this.brickOffsetTop = 30),
-      (this.brickOffsetLeft = 30),
+      (this.brickOffsetLeft = 60),
       (this.rowBlocks = rows),
       (this.colors = ["#6DBBF3", "#A919E4", "#370B6A"]),
       (this.columnBlocks = column),
@@ -39,29 +40,7 @@ class Bricks {
       return true;
     }
   }
-  // circleRect( cx, cy, radius, rx, ry, rw, rh) {
 
-  //   // temporary variables to set edges for testing
-  //   let testX = cx;
-  //   let testY = cy;
-  
-  //   // which edge is closest?
-  //   if (cx < rx)         testX = rx;      // test left edge
-  //   else if (cx > rx+rw) testX = rx+rw;   // right edge
-  //   if (cy < ry)         testY = ry;      // top edge
-  //   else if (cy > ry+rh) testY = ry+rh;   // bottom edge
-  
-  //   // get distance from closest edges
-  //   let distX = cx-testX;
-  //   let distY = cy-testY;
-  //   let distance = Math.sqrt( (distX*distX) + (distY*distY) );
-  
-  //   // if the distance is less than the radius, collision!
-  //   if (distance <= radius) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
   //Block collision
   collisionDetection(el) {
     let leftBall = el.x - el.radius;

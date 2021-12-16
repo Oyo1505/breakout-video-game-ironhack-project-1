@@ -8,10 +8,9 @@ const minUniElement = document.getElementById("minUni");
 const secDecElement = document.getElementById("secDec");
 const secUniElement = document.getElementById("secUni");
 //SOUNDS
-const bipSound = new Audio("../sounds/bip.wav");
 const musicGame = new Audio("./sounds/sound.mp3");
-const explosion = new Audio("../sounds/explosion.wav");
-const final = new Audio("../sounds/final.mp3");
+const explosion = new Audio("./sounds/explosion.wav");
+const final = new Audio("./sounds/final.mp3");
 musicGame.volume = 0.1;
 bipSound.volume = 0.3;
 final.volume = 0.5;
@@ -61,7 +60,6 @@ function update() {
   ball.draw();
   bricks.drawBricks();
   bricks.collisionDetection(ball);
-  // paddle.circleRect(ball, )
   paddle.collisionPaddle(ball);
   collisionCanvas(ball);
   ball.movementBall();
