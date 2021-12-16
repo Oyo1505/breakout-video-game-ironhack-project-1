@@ -9,17 +9,22 @@ const secDecElement = document.getElementById("secDec");
 const secUniElement = document.getElementById("secUni");
 //SOUNDS
 const bipSound = new Audio("../sounds/bip.wav");
-const musicGame = new Audio("../sounds/sound.mp3");
+const musicGame = new Audio("./sounds/sound.mp3");
 const explosion = new Audio("../sounds/explosion.wav");
 const final = new Audio("../sounds/final.mp3");
 musicGame.volume = 0.1;
 bipSound.volume = 0.3;
+final.volume = 0.5;
+
+const retryBtn = document.querySelector('#retry');
+retryBtn.style.visibility = "hidden"
 //INIT ELEMENTS
 const chronometer = new Chronometer();
 const paddle = new Paddle(100, 500, 140, 15, canvas);
-const bricks = new Bricks(55, 25, 4, 10);
-const ball = new Ball("red", 5);
+const bricks = new Bricks(55, 25, 6, 10);
+const ball = new Ball(400, paddle.y -5,"#7AB1F2", 5);
 const ballTwo = new Ball("bleu", 7);
+
 //Game Arena
 const myGameArea = {
   gameEngaged: false,
@@ -46,6 +51,7 @@ function gameIsOver(num, allBlocks) {
     final.play()
     printStringCanvas("YOU WIN !", 5);
     canvas.classList.add("box-sadow-color");
+    addScore()
   }
 }
 
@@ -55,6 +61,7 @@ function update() {
   ball.draw();
   bricks.drawBricks();
   bricks.collisionDetection(ball);
+  // paddle.circleRect(ball, )
   paddle.collisionPaddle(ball);
   collisionCanvas(ball);
   ball.movementBall();
@@ -62,7 +69,6 @@ function update() {
   bricks.checkIfAllBlocksStatus();
   keyPressed();
   hitBottom();
- // printScoreCanvas();
   if (myGameArea.gameEngaged) {
     requestAnimationFrame(update);
   }
@@ -89,12 +95,12 @@ function collisionCanvas(el) {
 }
 function keyPressed() {
   if (paddle.rightPressed) {
-    paddle.paddleX += 7;
+    paddle.paddleX += 9;
     if (paddle.paddleX + paddle.paddleWidth > canvas.width) {
       paddle.paddleX = canvas.width - paddle.paddleWidth;
     }
   } else if (paddle.leftPressed) {
-    paddle.paddleX -= 7;
+    paddle.paddleX -= 9;
     if (paddle.paddleX < 0) {
       paddle.paddleX = 0;
     }
@@ -109,6 +115,8 @@ function hitBottom() {
     musicGame.pause();
     printStringCanvas("LOSER !!!", 4.5);
     explosion.play();
+    addScore()
+    retryBtn.style.visibility = "visible"
   }
 }
 
@@ -174,18 +182,64 @@ function printSeconds() {
   }, 1000);
 }
 
+//RETRY
+function retry() {
+  bricks.initPositionBlocksArray();
+  ball.x =450;
+  ball.y=495;
+  paddle.y = 500;
+  chronometer.reset()
+  myGameArea.score = 0
+  myGameArea.stop();
+  musicGame.currentTime = 0;
+  musicGame.play();
+  chronometer.start();
+  myGameArea.start();
+  retryBtn.style.visibility = "hidden"
+  paddle.paddleX = (canvas.width - 150) / 2;
+  paddle.paddleWidth = 150;
+  if(canvas.classList.contains('awesome') || canvas.classList.contains('box-sadow-color')){
+    canvas.classList.remove("awesome")
+    canvas.classList.remove("box-sadow-color")
+  }
+}
+
+retryBtn.addEventListener('click', retry)  
+
+
+//BOARD SCORE
+const liScore = document.querySelector('#scoreBoard')
+let newArr = JSON.parse(localStorage.getItem("score")) || [];
+
+function addScore() {
+  if(newArr.score < myGameArea.score){
+    let personalScore = { score : myGameArea.score || 0}
+    localStorage.setItem("score", JSON.stringify(personalScore));
+    liScore.innerHTML = myGameArea.score
+  }else{
+    liScore.innerHTML = newArr.score
+  }
+
+}
+window.addEventListener('load', () => { // Storage will still stay after refresh
+  if(newArr.length !==0)liScore.innerHTML = newArr.score;
+});
+
 //initialisation of block in the canvas
 bricks.initPositionBlocksArray();
-
 paddle.draw();
 ball.draw();
 bricks.drawBricks();
-//print the time on the page
+
+let gameStarted = false;
+
 document.addEventListener("keydown", (e) => {
-  if (e.keyCode == 32) {
-   chronometer.start();
-   myGameArea.start();
-   musicGame.play();
+  if (gameStarted === false && e.keyCode == 32) {
+  chronometer.start();
+  myGameArea.start();
+  musicGame.play();
+   printTime()
+   gameStarted = true
   }
 });
 

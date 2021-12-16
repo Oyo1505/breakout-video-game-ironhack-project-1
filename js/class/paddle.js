@@ -7,11 +7,11 @@ class Paddle {
         this.paddleHeight= height,
         this.paddleX= (canvas.width - 150) / 2,
         this.paddleY= (canvas.height - 25) / 2,
-        this.color= "red",
+        this.color= "#0B050C",
         this.rightPressed= false,
         this.leftPressed= false,
         this.draw= function () {
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "#0B050C";
             ctx.beginPath();
             ctx.fillRect(
               paddle.paddleX,
@@ -25,15 +25,20 @@ class Paddle {
           }
     }
      collisionPaddle(el) {
-        if (el.y > this.y && this.gapXPaddle(el)) {
+        if (el.y > this.y && el.y < this.y + 10 && this.gapXPaddle(el)) {
           el.vy *= -1;
         }
       }
        gapXPaddle(el) {
-        if (el.x > this.paddleX && el.x < this.paddleX + this.paddleWidth) {
+        if (el.x > this.paddleX && el.x < this.paddleX + this.paddleWidth  ) {
           return true;
         } else {
           return false;
+        }
+      }
+      collidedLeft(a, b) {
+        if (a + a.vx > b.x) {
+          return true;
         }
       }
 }

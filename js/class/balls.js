@@ -1,8 +1,8 @@
 class Ball {
-  constructor(color, radius) {
-    (this.x = 450),
-      (this.y = 495),
-      (this.vx = 4),
+  constructor(x,y,color, radius) {
+    (this.x = x),
+      (this.y = y),
+      (this.vx = -4),
       (this.vy = -4),
       (this.radius = radius),
       (this.color = color),
