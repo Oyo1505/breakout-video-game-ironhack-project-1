@@ -15,13 +15,13 @@ musicGame.volume = 0.1;
 bipSound.volume = 0.3;
 final.volume = 0.5;
 
-const retryBtn = document.querySelector('#retry');
-retryBtn.style.visibility = "hidden"
+const retryBtn = document.querySelector("#retry");
+retryBtn.style.visibility = "hidden";
 //INIT ELEMENTS
 const chronometer = new Chronometer();
 const paddle = new Paddle(100, 500, 140, 15, canvas);
 const bricks = new Bricks(55, 25, 6, 10);
-const ball = new Ball(400, paddle.y -5,"#7AB1F2", 5);
+const ball = new Ball(400, paddle.y - 5, "#7AB1F2", 5);
 const ballTwo = new Ball("bleu", 7);
 
 //Game Arena
@@ -46,11 +46,11 @@ function gameIsOver(num, allBlocks) {
   if (num === allBlocks) {
     myGameArea.stop();
     musicGame.currentTime = 0;
-     musicGame.pause()
-    final.play()
+    musicGame.pause();
+    final.play();
     printStringCanvas("YOU WIN !", 5);
     canvas.classList.add("box-sadow-color");
-    addScore()
+    addScore();
   }
 }
 
@@ -72,10 +72,7 @@ function update() {
   }
 }
 function increaseDifficulty() {
-  if (
-    chronometer.getSeconds() >= 30 &&
-    paddle.paddleWidth >= paddle.minWidth 
-  ) {
+  if (chronometer.getSeconds() >= 30 && paddle.paddleWidth >= paddle.minWidth) {
     canvas.classList.add("awesome");
     paddle.paddleWidth -= 1;
   }
@@ -113,15 +110,14 @@ function hitBottom() {
     musicGame.pause();
     printStringCanvas("LOSER !!!", 4.5);
     explosion.play();
-    addScore()
-    retryBtn.style.visibility = "visible"
+    addScore();
+    retryBtn.style.visibility = "visible";
   }
 }
 
 function printScoreCanvas() {
-    printStringCanvas("AWESOME", 6.5);
+  printStringCanvas("AWESOME", 6.5);
 }
- 
 
 function printStringCanvas(str, posx) {
   ctx.font = "italic 6rem  pixel ";
@@ -183,46 +179,47 @@ function printSeconds() {
 //RETRY
 function retry() {
   bricks.initPositionBlocksArray();
-  ball.x =450;
-  ball.y=495;
+  ball.x = 450;
+  ball.y = 495;
   paddle.y = 500;
-  chronometer.reset()
-  myGameArea.score = 0
+  chronometer.reset();
+  myGameArea.score = 0;
   myGameArea.stop();
   musicGame.currentTime = 0;
   musicGame.play();
   chronometer.start();
   myGameArea.start();
-  retryBtn.style.visibility = "hidden"
+  retryBtn.style.visibility = "hidden";
   paddle.paddleX = (canvas.width - 150) / 2;
   paddle.paddleWidth = 150;
-  if(canvas.classList.contains('awesome') || canvas.classList.contains('box-sadow-color')){
-    canvas.classList.remove("awesome")
-    canvas.classList.remove("box-sadow-color")
+  if (
+    canvas.classList.contains("awesome") ||
+    canvas.classList.contains("box-sadow-color")
+  ) {
+    canvas.classList.remove("awesome");
+    canvas.classList.remove("box-sadow-color");
   }
 }
 
-retryBtn.addEventListener('click', retry)  
-
+retryBtn.addEventListener("click", retry);
 
 //BOARD SCORE
-const liScore = document.querySelector('#scoreBoard')
+const liScore = document.querySelector("#scoreBoard");
 let newArr = JSON.parse(localStorage.getItem("score")) || [];
 
 function addScore() {
-  let personalScore = { score : myGameArea.score || 0}
-  if(myGameArea.score  > newArr.score && newArr !==0){
-    console.log(newArr, myGameArea.score)
+  let personalScore = { score: myGameArea.score || 0 };
+  if (myGameArea.score > newArr.score && newArr !== 0) {
     localStorage.setItem("score", JSON.stringify(personalScore));
-    liScore.innerHTML = myGameArea.score
-  }else{
+    liScore.innerHTML = myGameArea.score;
+  } else {
     localStorage.setItem("score", JSON.stringify(personalScore));
-    liScore.innerHTML = myGameArea.score
+    liScore.innerHTML = myGameArea.score;
   }
-
 }
-window.addEventListener('load', () => { // Storage will still stay after refresh
-  if(newArr.length !==0)liScore.innerHTML = newArr.score;
+window.addEventListener("load", () => {
+  // Storage will still stay after refresh
+  if (newArr.length !== 0) liScore.innerHTML = newArr.score;
 });
 
 //initialisation of block in the canvas
@@ -235,11 +232,11 @@ let gameStarted = false;
 
 document.addEventListener("keydown", (e) => {
   if (gameStarted === false && e.keyCode == 32) {
-  chronometer.start();
-  myGameArea.start();
-  musicGame.play();
-   printTime()
-   gameStarted = true
+    chronometer.start();
+    myGameArea.start();
+    musicGame.play();
+    printTime();
+    gameStarted = true;
   }
 });
 
