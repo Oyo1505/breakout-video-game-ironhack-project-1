@@ -25,7 +25,7 @@ class Paddle {
           }
     }
      collisionPaddle(el) {
-        if (el.y > this.y && el.y < this.y + 10 && this.gapXPaddle(el)) {
+        if (el.y > this.y && el.y < this.y + 9 && this.gapXPaddle(el)) {
           el.vy *= -1;
         }
       }
